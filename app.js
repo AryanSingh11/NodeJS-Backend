@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 //     res.redirect('/');
 // });
 
+app.use(express.static(path.join(__dirname,'public')))
+
 app.use('/admin',adminRouter);
 app.use(shopRoutes);
 
@@ -39,4 +41,4 @@ app.use((req,res,next)=>{
     res.sendFile(path.join(__dirname,'views','404.html'))
 })
 
-app.listen(3001);
+app.listen(3002);
