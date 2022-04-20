@@ -3,7 +3,13 @@ const bodyParser=require('body-parser');
 const adminData=require('./routes/admin')
 const shopRoutes=require('./routes/shop');
 const path=require('path');
+const ejs= require('ejs');
+
 const app=express();
+
+app.set('view engine','ejs');
+app.set('views','views');
+//app.set('views','./views');
 
 app.use(bodyParser.urlencoded({extended:false}));
 
@@ -38,7 +44,8 @@ app.use(shopRoutes);
 //below code does the job of above 2 lines
 
 app.use((req,res,next)=>{
-    res.sendFile(path.join(__dirname,'views','404.html'))
+    //res.sendFile(path.join(__dirname,'views','404.html'))
+    res.status(404).render(404);
 })
 
 app.listen(3000);
