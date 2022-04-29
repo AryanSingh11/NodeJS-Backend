@@ -1,7 +1,8 @@
 const express=require('express');
 const bodyParser=require('body-parser');
-const adminData=require('./routes/admin')
+const adminRoutes =require('./routes/admin');
 const shopRoutes=require('./routes/shop');
+const errorController = require('./controllers/error.js');
 const path=require('path');
 const ejs= require('ejs');
 
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 app.use(express.static(path.join(__dirname,'public')))
 
-app.use('/admin',adminData.routes);
+app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
 // app.use('/', (req, res,next)=>{
@@ -43,9 +44,6 @@ app.use(shopRoutes);
 // server.listen(3000); 
 //below code does the job of above 2 lines
 
-app.use((req,res,next)=>{
-    //res.sendFile(path.join(__dirname,'views','404.html'))
-    res.status(404).render('404',{pageTitle:'Page not found'});
-})
+app.use(errorController.get404);
 
 app.listen(3000);
